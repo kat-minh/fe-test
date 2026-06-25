@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Navigate } from "react-router-dom"
 
 const STACK = [
   "React 18 + Vite",
@@ -32,6 +33,7 @@ export function HomePage() {
             </code>
             .
           </CardDescription>
+          <Navigate to="/login">Login</Navigate>
         </CardHeader>
         <CardContent>
           <ul className="grid grid-cols-2 gap-2 text-sm">

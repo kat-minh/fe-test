@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom"
 
 import { HomePage } from "@/pages/home-page"
+import { LoginPage } from "./pages/login-page"
+import { UsersPage } from "./pages/user-page"
 
 /**
  * App router — React Router v7 data API (`createBrowserRouter`).
@@ -14,5 +16,10 @@ import { HomePage } from "@/pages/home-page"
  * auth, and use loaders if you want route-level data fetching.
  */
 export const router = createBrowserRouter([
-  { path: "/", element: <HomePage /> },
+  { path: "/", element: <HomePage />, children: [
+      { path: "/login", element: <LoginPage /> },
+      { path: "/users", element: <UsersPage /> },
+  ] },
+
+  // { path: "/users/:id", element: <UserDetailPage /> },
 ])
