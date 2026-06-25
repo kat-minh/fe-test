@@ -3,11 +3,11 @@ import axios from "axios"
 /**
  * Shared axios instance.
  *
- * `baseURL` comes from VITE_API_BASE_URL (see .env.example). It is intentionally
- * left empty for now — point it at a real API when you have one.
+ * `baseURL` comes from VITE_API_BASE_URL (see .env.example). It falls back to the
+ * bundled reference backend on http://localhost:4000 so a fresh clone just works.
  */
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:4000",
   timeout: 15_000,
   headers: {
     "Content-Type": "application/json",

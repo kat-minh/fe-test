@@ -40,11 +40,30 @@ VITE_API_BASE_URL=
 
 ## 3. Cách bắt đầu
 
+### Cách nhanh nhất (chạy cả backend + frontend bằng 1 lệnh)
+
+Repo đã kèm sẵn backend tham chiếu trong thư mục `server/`. Mở **PowerShell** tại thư mục gốc của project rồi chạy:
+
+powershell
+.\dev.cmd
+
+Lần đầu sẽ tự cài dependencies, sau đó bật cùng lúc:
+
+- Backend: http://localhost:4000 (Swagger: /docs)
+- Frontend: http://localhost:5173
+
+Nhấn `Ctrl + C` để tắt cả hai. Tài khoản đăng nhập:
+
+- admin@example.com / admin123 (admin)
+- employee@example.com / employee123 (employee)
+
+### Hoặc chạy thủ công
+
 pnpm install
 cp .env.example .env
 pnpm dev
 
-Sau đó điền giá trị VITE_API_BASE_URL trong file .env.
+`VITE_API_BASE_URL` mặc định trỏ về backend local (http://localhost:4000); chỉnh lại trong `.env` nếu bạn dùng API khác.
 
 Các script khác:
 

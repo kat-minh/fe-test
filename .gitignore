@@ -28,7 +28,5 @@ dist-ssr
 .env.local
 .env.*.local
 
-# Local dev setup (bundled reference backend + run-both script) — not part of the scaffold
-/server
-dev.ps1
-dev.cmd
+# The bundled backend has its own env example; ignore its real env too
+/server/.env
