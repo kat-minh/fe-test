@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/store/auth-store"
 import axios from "axios"
 
 /**
@@ -16,14 +17,27 @@ export const api = axios.create({
 
 // Request interceptor — attach auth token, etc.
 api.interceptors.request.use((config) => {
+  const token = useAuthStore.getState().token
+
+  if (token && config.headers) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
   return config
 })
 
 // Response interceptor — unwrap data / handle errors globally.
 api.interceptors.response.use(
-  (response) => response,
+  (response) => response.data,
   (error) => {
-    // Centralize error handling here (toast, logout on 401, etc.).
+    const originalRequest = error.config
+    const isAuthRequest = originalRequest.url?.include("/auth/login")
+    const is401 = error.response?.status === 401
+
+    if (is401 && !isAuthRequest) {
+      useAuthStore.getState().logout()
+      window.location.href = "/login"
+    }
+
     return Promise.reject(error)
   },
 )
