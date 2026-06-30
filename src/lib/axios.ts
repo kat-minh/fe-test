@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/store/auth-store"
 import axios from "axios"
 
 /**
@@ -15,13 +16,26 @@ export const api = axios.create({
 })
 
 // Request interceptor — attach auth token, etc.
-api.interceptors.request.use((config) => {
-  return config
-})
+api.interceptors.request.use(
+  (config) => {
+    const accessToken = useAuthStore.getState().token
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`
+    }
+    return config
+  },
+  (error) => {
+    Promise.reject(error)
+  },
+)
 
 // Response interceptor — unwrap data / handle errors globally.
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    return response.data?.data !== undefined
+      ? response.data?.data
+      : response.data
+  },
   (error) => {
     // Centralize error handling here (toast, logout on 401, etc.).
     return Promise.reject(error)
