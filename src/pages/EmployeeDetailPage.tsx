@@ -1,7 +1,5 @@
-import React from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { useQuery } from "@tanstack/react-query"
-import { apiClient } from "@/components/services"
+import { useEmployeeDetailQuery } from "@/components/hooks/useAuth"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
@@ -9,15 +7,7 @@ export default function EmployeeDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
 
-  const {
-    data: employee,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["employee", id],
-    queryFn: () => apiClient.getEmpById(id as string),
-    enabled: !!id,
-  })
+  const { data: employee, isLoading, isError } = useEmployeeDetailQuery(id)
 
   if (isLoading) return <div className="p-8">Đang tải thông tin...</div>
   if (isError || !employee)

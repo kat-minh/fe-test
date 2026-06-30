@@ -8,7 +8,7 @@ export interface User {
 }
 
 export interface AuthRespone {
-  acessToken: string
+  token: string
   user: User
 }
 
@@ -32,5 +32,4 @@ export interface EmployeeCreateRequest {
   email: string
   position: string
   department: string
-  status: string
 }

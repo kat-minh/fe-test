@@ -1,7 +1,5 @@
-import React, { useState } from "react"
-import { useQuery } from "@tanstack/react-query"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { apiClient } from "@/components/services"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -12,28 +10,23 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useAuthStore } from "@/store/auth-store"
+import {
+  useEmployeesQuery,
+  useLogoutMutation,
+} from "@/components/hooks/useAuth"
 
 export default function AdminPage() {
   const navigate = useNavigate()
-  const logout = useAuthStore((state) => state.logout)
+  const logoutMutation = useLogoutMutation()
   const [search, setSearch] = useState("")
 
-  const { data, isLoading, isError, refetch } = useQuery({
-    queryKey: ["employees"],
-    queryFn: apiClient.getEmployees,
-  })
+  const { data, isLoading, isError, refetch } = useEmployeesQuery()
 
   const filteredData = data?.filter(
     (emp) =>
       emp.name.toLowerCase().includes(search.toLowerCase()) ||
       emp.email.toLowerCase().includes(search.toLowerCase()),
   )
-
-  const handleLogout = () => {
-    logout()
-    navigate("/login")
-  }
 
   return (
     <div className="p-8 space-y-6">
@@ -43,7 +36,7 @@ export default function AdminPage() {
           <Button onClick={() => navigate("/admin/employees/create")}>
             Tạo Employee mới
           </Button>
-          <Button variant="outline" onClick={handleLogout}>
+          <Button variant="outline" onClick={() => logoutMutation.mutate()}>
             Đăng xuất
           </Button>
         </div>

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useNavigate } from "react-router-dom"
+import { Form, useNavigate } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -39,7 +39,7 @@ export default function EmployeeCreatePage() {
           <CardTitle>Tạo Employee mới</CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <Form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2">
               <Label>Họ tên</Label>
               <Input {...register("name")} />
@@ -75,7 +75,7 @@ export default function EmployeeCreatePage() {
             <Button type="submit" disabled={createMutation.isPending}>
               {createMutation.isPending ? "Đang lưu..." : "Tạo mới"}
             </Button>
-          </form>
+          </Form>
         </CardContent>
       </Card>
     </div>

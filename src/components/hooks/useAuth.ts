@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { AuthResquest } from "../types"
+import { AuthResquest, EmployeeCreateRequest } from "../types"
 import { apiClient } from "../services"
 import { useNavigate } from "react-router-dom"
 import { useAuthStore } from "@/store/auth-store"
@@ -28,7 +28,7 @@ export const useLogoutMutation = () => {
   const logout = useAuthStore((state) => state.logout)
   return useMutation({
     mutationFn: () => apiClient.logout(),
-    onSuccess: (res) => {
+    onSuccess: () => {
       logout()
       navigate("/")
     },
@@ -51,7 +51,7 @@ export const useEmployeeDetailQuery = (id: string | undefined) => {
   return useQuery({
     queryKey: ["employee", id],
     queryFn: () => apiClient.getEmpById(id as string),
-    enabled: !!id
+    enabled: !!id,
   })
 }
 
@@ -60,7 +60,7 @@ export const useCreateEmployeeMutation = () => {
   const navigate = useNavigate()
 
   return useMutation({
-    mutationFn: apiClient.createEmployee,
+    mutationFn: (body: EmployeeCreateRequest) => apiClient.createEmployee(body),
     onSuccess: () => {
       alert("Tạo nhân viên thành công!")
       queryClient.invalidateQueries({ queryKey: ["employees"] })
