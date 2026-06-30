@@ -1,29 +1,47 @@
 import axios from "axios"
+import { env } from "./env"
+import { toast } from "sonner"
+import { useAuthStore } from "@/feature/auth/store"
 
-/**
- * Shared axios instance.
- *
- * `baseURL` comes from VITE_API_BASE_URL (see .env.example). It falls back to the
- * bundled reference backend on http://localhost:4000 so a fresh clone just works.
- */
-export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:4000",
-  timeout: 15_000,
+const apiClient = axios.create({
+  baseURL: env.API_URL,
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 })
 
-// Request interceptor — attach auth token, etc.
-api.interceptors.request.use((config) => {
-  return config
-})
+apiClient.interceptors.request.use(
+  (config) => {
+    const accessToken = useAuthStore.getState().accessToken
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`
+    }
+    return config
+  },
+  (error) => Promise.reject(error),
+)
 
-// Response interceptor — unwrap data / handle errors globally.
-api.interceptors.response.use(
-  (response) => response,
+apiClient.interceptors.response.use(
+  (response) => {
+    return response.data
+  },
   (error) => {
-    // Centralize error handling here (toast, logout on 401, etc.).
+    if (error.response?.status === 401) {
+      useAuthStore.getState().clearAuth()
+      toast.error("Access token hết hạn")
+      window.location.href = "/login"
+      return Promise.reject(error)
+    }
+    const message = error.response?.data?.message || error.message
+    const isLogoutEndpoint = error.config?.url?.includes("/auth/logout")
+
+    if (!isLogoutEndpoint) {
+      toast.error(message)
+    }
+
     return Promise.reject(error)
   },
 )
+
+export default apiClient
