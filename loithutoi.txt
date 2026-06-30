@@ -1,0 +1,17 @@
+#Những việc chưa làm được
+
+1. Chưa làm được những api (get, create, getEmployeeById)
+
+Lí do: 
+api get: quên mất cách lấy data bằng useCustomeHook ở trang AdminPage, chưa làm bộ lọc filter data
+
+create: bị khựng lại vì data và id tự sinh => nên là vẫn chưa làm được
+
+getEmployeeById: chưa làm đc
+
+
+2. Những cái làm đc
+
+gọi đc api login và logout và redirect theo trang rồi
+
+:((((
