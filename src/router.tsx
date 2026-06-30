@@ -1,6 +1,12 @@
 import { createBrowserRouter } from "react-router-dom"
 
 import { HomePage } from "@/pages/home-page"
+import { LoginPage } from "./pages/login-page"
+import { AttendancePage } from "./pages/attendance-page"
+import { AdminPage } from "./pages/admin-page"
+
+import { DetailPage } from "./pages/detail-page"
+import { CreateEmployee } from "./pages/create-employee"
 
 /**
  * App router — React Router v7 data API (`createBrowserRouter`).
@@ -15,4 +21,10 @@ import { HomePage } from "@/pages/home-page"
  */
 export const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
+  { path: "/login", element: <LoginPage /> },
+  { path: "/attendance", element: <AttendancePage /> },
+  { path: "/admin", element: <AdminPage /> },
+  { path: "/employees/:id", element: <DetailPage /> },
+  { path: "admin/employees/create", element: <CreateEmployee /> },
+
 ])

@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { NavLink } from "react-router-dom"
 
 const STACK = [
   "React 18 + Vite",
@@ -35,12 +36,13 @@ export function HomePage() {
         </CardHeader>
         <CardContent>
           <ul className="grid grid-cols-2 gap-2 text-sm">
-            {STACK.map((item) => (
+            {/* {STACK.map((item) => (
               <li key={item} className="flex items-center gap-2">
                 <span className="bg-primary size-1.5 rounded-full" />
                 {item}
               </li>
-            ))}
+            ))} */}
+            <NavLink to={"/login"}><li>Đăng nhập</li></NavLink>
           </ul>
         </CardContent>
       </Card>
