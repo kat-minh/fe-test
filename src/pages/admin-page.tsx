@@ -6,16 +6,23 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useGetEmployee } from "@/features/employee/hooks/use-get-employee"
+import { useLogout } from "@/features/auth/hooks/use-logout"
 import { useGetEmployees } from "@/features/employee/hooks/use-get-employees"
 import { useNavigate } from "react-router-dom"
 
 export default function Admin() {
   const navigate = useNavigate()
-  const getDetail = useGetEmployee
   const { data: employees } = useGetEmployees()
+  const logout = useLogout()
   return (
     <>
+      <Button
+        onClick={() => {
+          logout.mutate()
+        }}
+      >
+        Logout
+      </Button>
       <Table>
         <TableHeader>
           <TableRow>
@@ -33,9 +40,7 @@ export default function Admin() {
             <TableCell>{emp.id}</TableCell>
             <TableCell>{emp.name}</TableCell>
             <TableCell>{emp.email}</TableCell>
-
             <TableCell>{emp.position}</TableCell>
-
             <TableCell>{emp.department}</TableCell>
             <TableCell>{emp.status}</TableCell>
             <TableCell>

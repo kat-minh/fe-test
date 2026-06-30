@@ -6,7 +6,7 @@ import { authService } from "../service"
 export const useLogout = () => {
   const navigate = useNavigate()
   return useMutation({
-    mutationFn: authService.logout,
+    mutationFn: () => authService.logout(),
     onSuccess: () => {
       console.log("Logout thanh cong")
       useAuthStore.getState().logout()

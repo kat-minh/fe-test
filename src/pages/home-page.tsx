@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -5,6 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { useLogout } from "@/features/auth/hooks/use-logout"
+import { useNavigate } from "react-router-dom"
 
 const STACK = [
   "React 18 + Vite",
@@ -20,6 +23,8 @@ const STACK = [
 
 /** Sample page — replace with your own. */
 export function HomePage() {
+  const navigate = useNavigate()
+  const logout = useLogout()
   return (
     <main className="flex min-h-svh items-center justify-center p-6">
       <Card className="w-full max-w-md">
@@ -44,6 +49,20 @@ export function HomePage() {
           </ul>
         </CardContent>
       </Card>
+      <Button
+        onClick={() => {
+          navigate("/login")
+        }}
+      >
+        Login
+      </Button>
+      <Button
+        onClick={() => {
+          logout.mutate()
+        }}
+      >
+        Logout
+      </Button>
     </main>
   )
 }

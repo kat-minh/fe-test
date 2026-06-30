@@ -1,0 +1,8 @@
+Record buổi hôm nay của em Nam 
+- Em Nam đã làm được: 
+  Hầu hết các luồng, xử lí logic (hooks, service, validation)
+- Em Nam còn chậm:
+  Khâu render tất cả tụi nó lên giao diện, em nam còn quên syntax, phải mất thời gian mớt nhớ
+- Em Nam chưa làm được:
+  - Nam chưa map được lúc đầu. Lí do là vì map xong nó báo lỗi với lại em Nam có quên syntax chỗ nhúng code của map lên giao diện
+  - Chưa handle được đường dẫn động của ID, còn lay hoay chỗ làm sao để lấy ID trên dường dẫn, sử dụng useParam còn phải nhờ các bạn chỉ

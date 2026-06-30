@@ -1,5 +1,4 @@
 import { api } from "@/lib/axios"
-import { Params } from "react-router-dom"
 import { EmployeeRequest, EmployeeResponse } from "./types"
 
 const BaseUrl = "/employees"
@@ -9,7 +8,7 @@ export const employeeService = {
     return data as unknown as Promise<EmployeeResponse>
   },
 
-  async getEmployee(id: Readonly<Params<string>>): Promise<EmployeeResponse> {
+  async getEmployee(id: string): Promise<EmployeeResponse> {
     const data = await api.get(`${BaseUrl}/${id}`)
     return data as unknown as Promise<EmployeeResponse>
   },

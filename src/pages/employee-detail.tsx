@@ -1,8 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useGetEmployee } from "@/features/employee/hooks/use-get-employee"
+import { useParams } from "react-router-dom"
 
 export default function EmployeeDetail() {
-  const { data } = useGetEmployee()
+  const { id } = useParams<{ id: string }>()
+  const { data } = useGetEmployee(id!)
   return (
     <>
       <Card>
@@ -11,9 +13,7 @@ export default function EmployeeDetail() {
         </CardHeader>
         <CardContent>{data?.id}</CardContent>
         <CardContent>{data?.name}</CardContent>
-
         <CardContent>{data?.position}</CardContent>
-
         <CardContent>{data?.department}</CardContent>
       </Card>
     </>
