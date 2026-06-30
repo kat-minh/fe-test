@@ -1,5 +1,6 @@
+import { AuthAction, AuthState } from "@/type"
 import { create } from "zustand"
-import { persist } from "zustand/middleware"
+import { createJSONStorage, persist } from "zustand/middleware"
 
 /**
  * Example Zustand store (skeleton).
@@ -7,19 +8,18 @@ import { persist } from "zustand/middleware"
  * Demonstrates the pattern: state + actions in one slice, persisted to
  * localStorage. Replace with whatever global state your feature needs.
  */
-interface AuthState {
-  token: string | null
-  setToken: (token: string | null) => void
-  logout: () => void
-}
 
-export const useAuthStore = create<AuthState>()(
+export const useAuthStore = create<AuthState & AuthAction>()(
   persist(
     (set) => ({
       token: null,
-      setToken: (token) => set({ token }),
-      logout: () => set({ token: null }),
+      user: null,
+      setToken: (token, user) => set({ token, user }),
+      clearToken: () => set({ token: null, user: null }),
     }),
-    { name: "auth-storage" },
+    {
+      name: "auth-storage",
+      storage: createJSONStorage(() => localStorage),
+    },
   ),
 )
