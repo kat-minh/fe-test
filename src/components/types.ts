@@ -26,3 +26,11 @@ export interface EmployeeRespone {
   status: string
   createdAt: string
 }
+
+export interface EmployeeCreateRequest {
+  name: string
+  email: string
+  position: string
+  department: string
+  status: string
+}

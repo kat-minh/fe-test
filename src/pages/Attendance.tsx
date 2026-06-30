@@ -8,8 +8,6 @@ import {
   CardHeader,
   CardAction,
 } from "@/components/ui/card"
-import { Label } from "@radix-ui/react-label"
-import { Input } from "@/components/ui/input"
 
 import { Button } from "@/components/ui/button"
 import { data, Form } from "react-router-dom"

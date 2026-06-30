@@ -17,8 +17,6 @@ const STACK = [
   "React Hook Form",
   "Zod",
 ]
-
-/** Sample page — replace with your own. */
 export function HomePage() {
   return (
     <main className="flex min-h-svh items-center justify-center p-6">

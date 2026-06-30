@@ -1,0 +1,9 @@
+Những phần đã làm được trong lúc kiểm tra:
+1 Gọi API login thành công, set được tokens, role
+2 Gọi API logout, xóa token, role
+Những phần chưa  làm được:
+1. Gọi API list employee
+2. Gọi API employee by ID
+3. Gọi API tạo employee
+4. Gọi API getMe
+=> lí do: chưa ôn thật kỹ bài học, còn mắc lỗi trong việc sai flow làm bài.

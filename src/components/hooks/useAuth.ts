@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { AuthResquest } from "../types"
 import { apiClient } from "../services"
 import { useNavigate } from "react-router-dom"
@@ -10,42 +10,64 @@ export const useLoginMutation = () => {
   return useMutation({
     mutationFn: (body: AuthResquest) => apiClient.login(body),
     onSuccess: (res) => {
-      console.log(res)
-      console.log("hi")
-      setTokens(res.data.acessToken, res.data.user.role)
-      console.log("thanh cong ae")
-      if (res.data.user.role == "admin") {
-        navigate("/admin")
-      }
-      if (res.data.user.role == "employee") {
-        navigate("/attendance")
-      }
+      setTokens(res.data.token, res.data.user.role)
+      console.log(res.data.token)
+
+      if (res.data.user.role === "admin") navigate("/admin")
+      if (res.data.user.role === "employee") navigate("/attendance")
     },
     onError: (error) => {
       console.log(error)
+
+      //  alert("Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.")
     },
   })
 }
 export const useLogoutMutation = () => {
   const navigate = useNavigate()
-  const setTokens = useAuthStore((state) => state.setToken)
+  const logout = useAuthStore((state) => state.logout)
   return useMutation({
     mutationFn: () => apiClient.logout(),
     onSuccess: (res) => {
-      console.log(res)
-      console.log("hi")
-      console.log("thanh cong ae")
-      setTokens(null, null)
+      logout()
       navigate("/")
     },
-    onError: (error) => {
+    onError: () => {
       console.log("LOI nma van xoa ae")
-      setTokens(null, null)
+      logout()
       navigate("/")
     },
   })
 }
-export const useGetEmpMutation = () => {
+
+export const useEmployeesQuery = () => {
+  return useQuery({
+    queryKey: ["employees"],
+    queryFn: apiClient.getEmployees,
+  })
+}
+
+export const useEmployeeDetailQuery = (id: string | undefined) => {
+  return useQuery({
+    queryKey: ["employee", id],
+    queryFn: () => apiClient.getEmpById(id as string),
+    enabled: !!id
+  })
+}
+
+export const useCreateEmployeeMutation = () => {
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
-  return useMutation({})
+
+  return useMutation({
+    mutationFn: apiClient.createEmployee,
+    onSuccess: () => {
+      alert("Tạo nhân viên thành công!")
+      queryClient.invalidateQueries({ queryKey: ["employees"] })
+      navigate("/admin")
+    },
+    onError: () => {
+      alert("Tạo nhân viên thất bại. Vui lòng thử lại.")
+    },
+  })
 }
