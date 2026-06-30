@@ -16,6 +16,20 @@ export const api = axios.create({
 
 // Request interceptor — attach auth token, etc.
 api.interceptors.request.use((config) => {
+  try {
+    const authStorageRaw = localStorage.getItem("auth-storage")
+
+    if (authStorageRaw) {
+      const authData = JSON.parse(authStorageRaw)
+      const token = authData?.state?.token
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
+    }
+    return config
+  } catch (error) {
+    console.error("Error in request interceptor:", error)
+  }
   return config
 })
 
