@@ -45,6 +45,8 @@ export function HomePage() {
     //     </CardContent>
     //   </Card>
     // </main>
-    <p className="text-center">HomePage</p>
+    <div className="flex justify-center items-center h-screen">
+      <p className="text-center">HomePage</p>
+    </div>
   )
 }

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>&Dstrok;&#x1ec1; b&agrave;i &mdash; FE Test ReactJS</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="đề-bài--fe-test-reactjs">Đề bài — FE Test ReactJS</h1>
+<h2 id="1-giới-thiệu">1. Giới thiệu</h2>
+<p>Đây là một dự án nền đã được cấu hình sẵn toàn bộ hạ tầng: build, routing, HTTP client, state management, form và validation.</p>
+<p>Phần logic tính năng chưa được viết. Nhiệm vụ của bạn là hoàn thiện các chức năng được mô tả bên dưới dựa trên convention có sẵn của dự án.</p>
+<p>Mục tiêu của bài test là đánh giá khả năng:</p>
+<ul>
+<li>Đọc hiểu một codebase có sẵn.</li>
+<li>Xây dựng tính năng ReactJS kết nối với API thật.</li>
+<li>Tổ chức code rõ ràng, tách biệt giữa component / hook / service / store.</li>
+<li>Xử lý authentication, authorization theo role.</li>
+<li>Xử lý đầy đủ các trạng thái loading / error / empty.</li>
+<li>Validate form bằng React Hook Form + Zod.</li>
+<li>Sử dụng TanStack React Query đúng cách cho server state.</li>
+</ul>
+<p>Bạn được cung cấp một API backend riêng. Cấu hình endpoint thông qua biến môi trường:</p>
+<p>env
+VITE_API_BASE_URL=</p>
+<hr>
+<h2 id="2-tech-stack-đã-cài-sẵn">2. Tech stack đã cài sẵn</h2>
+<table>
+<thead>
+<tr>
+<th>Mảng</th>
+<th>Thư viện</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Build / dev</td>
+<td>Vite + React 18 + TypeScript</td>
+</tr>
+<tr>
+<td>Styling / UI</td>
+<td>Tailwind CSS v4 + shadcn/ui</td>
+</tr>
+<tr>
+<td>Routing</td>
+<td>React Router v7</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>Axios — src/lib/axios.ts</td>
+</tr>
+<tr>
+<td>Server state</td>
+<td>TanStack React Query</td>
+</tr>
+<tr>
+<td>Client state</td>
+<td>Zustand — src/store</td>
+</tr>
+<tr>
+<td>Form</td>
+<td>React Hook Form</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>Zod + @hookform/resolvers</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="3-cách-bắt-đầu">3. Cách bắt đầu</h2>
+<h3 id="cách-nhanh-nhất-chạy-cả-backend--frontend-bằng-1-lệnh">Cách nhanh nhất (chạy cả backend + frontend bằng 1 lệnh)</h3>
+<p>Repo đã kèm sẵn backend tham chiếu trong thư mục <code>server/</code>. Mở <strong>PowerShell</strong> tại thư mục gốc của project rồi chạy:</p>
+<p>powershell
+.\dev.cmd</p>
+<p>Lần đầu sẽ tự cài dependencies, sau đó bật cùng lúc:</p>
+<ul>
+<li>Backend: <a href="http://localhost:4000">http://localhost:4000</a> (Swagger: /docs)</li>
+<li>Frontend: <a href="http://localhost:5173">http://localhost:5173</a></li>
+</ul>
+<p>Nhấn <code>Ctrl + C</code> để tắt cả hai. Tài khoản đăng nhập:</p>
+<ul>
+<li><a href="mailto:admin@example.com">admin@example.com</a> / admin123 (admin)</li>
+<li><a href="mailto:employee@example.com">employee@example.com</a> / employee123 (employee)</li>
+</ul>
+<h3 id="hoặc-chạy-thủ-công">Hoặc chạy thủ công</h3>
+<p>pnpm install
+cp .env.example .env
+pnpm dev</p>
+<p><code>VITE_API_BASE_URL</code> mặc định trỏ về backend local (<a href="http://localhost:4000">http://localhost:4000</a>); chỉnh lại trong <code>.env</code> nếu bạn dùng API khác.</p>
+<p>Các script khác:</p>
+<p>pnpm build # type-check + build production, bắt buộc phải pass
+pnpm preview # xem thử bản build
+pnpm format # format code</p>
+<p>Code tính năng nên được đặt trong:</p>
+<p>txt
+src/features/</p>
+<p>Có thể tham khảo src/pages/home-page.tsx như một route mẫu.</p>
+<hr>
+<h2 id="4-route-yêu-cầu">4. Route yêu cầu</h2>
+<p>Ứng dụng cần có các route sau:</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Mô tả</th>
+<th>Quyền truy cập</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/</td>
+<td>Home page, chỉ cần hiển thị chữ “Homepage”</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>/login</td>
+<td>Trang đăng nhập</td>
+<td>Chỉ guest</td>
+</tr>
+<tr>
+<td>/attendance</td>
+<td>Trang chấm công, chỉ cần hiển thị chữ “Chấm công”</td>
+<td>Chỉ role employee</td>
+</tr>
+<tr>
+<td>/admin</td>
+<td>Trang admin, hiển thị danh sách employee</td>
+<td>Chỉ role admin</td>
+</tr>
+<tr>
+<td>/admin/employees/create</td>
+<td>Trang tạo employee</td>
+<td>Chỉ role admin</td>
+</tr>
+<tr>
+<td>/admin/employees/:id</td>
+<td>Trang chi tiết employee</td>
+<td>Chỉ role admin</td>
+</tr>
+</tbody>
+</table>
+<p>Quy tắc redirect:</p>
+<ul>
+<li>
+<p>Người chưa đăng nhập truy cập route protected → redirect về /login.</p>
+</li>
+<li>
+<p>Người đã đăng nhập truy cập /login → redirect theo role:</p>
+<ul>
+<li>admin → /admin</li>
+<li>employee → /attendance</li>
+</ul>
+</li>
+<li>
+<p>User role employee truy cập route admin → redirect về /attendance.</p>
+</li>
+<li>
+<p>User role admin truy cập route employee → redirect về /admin.</p>
+</li>
+</ul>
+<hr>
+<h2 id="5-yêu-cầu-chức-năng">5. Yêu cầu chức năng</h2>
+<h3 id="51-đăng-nhập--bắt-buộc">5.1. Đăng nhập — bắt buộc</h3>
+<p>Xây dựng form đăng nhập gồm:</p>
+<ul>
+<li>Email</li>
+<li>Mật khẩu</li>
+</ul>
+<p>Yêu cầu:</p>
+<ul>
+<li>
+<p>Validate form bằng React Hook Form + Zod.</p>
+</li>
+<li>
+<p>Email phải đúng định dạng email.</p>
+</li>
+<li>
+<p>Mật khẩu không được để trống.</p>
+</li>
+<li>
+<p>Gọi API đăng nhập.</p>
+</li>
+<li>
+<p>Khi đăng nhập thành công:</p>
+<ul>
+<li>
+<p>Lưu token vào Zustand store.</p>
+</li>
+<li>
+<p>Lưu thông tin user vào Zustand store.</p>
+</li>
+<li>
+<p>Redirect theo role:</p>
+<ul>
+<li>admin → /admin</li>
+<li>employee → /attendance</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Khi đăng nhập thất bại:</p>
+<ul>
+<li>Hiển thị lỗi cho người dùng.</li>
+</ul>
+</li>
+</ul>
+<p>Giả định API login trả về dữ liệu dạng tương tự:</p>
+<p>{
+token: string;
+user: {
+id: string;
+email: string;
+fullName: string;
+role: &quot;admin&quot; | &quot;employee&quot;;
+};
+}</p>
+<hr>
+<h3 id="52-đăng-xuất--bắt-buộc">5.2. Đăng xuất — bắt buộc</h3>
+<p>Xây dựng chức năng logout.</p>
+<p>Yêu cầu:</p>
+<ul>
+<li>Xóa token.</li>
+<li>Xóa thông tin user trong store.</li>
+<li>Redirect về /login.</li>
+</ul>
+<hr>
+<h3 id="53-bảo-vệ-route-theo-role--bắt-buộc">5.3. Bảo vệ route theo role — bắt buộc</h3>
+<p>Cần xây dựng cơ chế bảo vệ route.</p>
+<p>Yêu cầu:</p>
+<ul>
+<li>Route public: /</li>
+<li>Route chỉ dành cho guest: /login</li>
+<li>Route chỉ dành cho employee: /attendance</li>
+<li>Route chỉ dành cho admin: /admin, /admin/employees/create, /admin/employees/:id</li>
+</ul>
+<p>Có thể triển khai bằng component wrapper, loader hoặc cơ chế phù hợp với React Router.</p>
+<hr>
+<h3 id="54-danh-sách-employee-dạng-bảng--bắt-buộc">5.4. Danh sách employee dạng bảng — bắt buộc</h3>
+<p>Trang /admin cần hiển thị danh sách employee.</p>
+<p>Yêu cầu:</p>
+<ul>
+<li>
+<p>Lấy dữ liệu từ API bằng TanStack React Query.</p>
+</li>
+<li>
+<p>Hiển thị dữ liệu bằng shadcn/ui Table.</p>
+</li>
+<li>
+<p>Có các trạng thái:</p>
+<ul>
+<li>Loading</li>
+<li>Error, có nút “Thử lại”</li>
+<li>Empty khi không có dữ liệu</li>
+</ul>
+</li>
+<li>
+<p>Có ô tìm kiếm để lọc employee trên bảng.</p>
+</li>
+<li>
+<p>Tìm kiếm thực hiện ở client-side trên danh sách đã tải.</p>
+</li>
+<li>
+<p>Click vào một dòng employee → chuyển sang trang chi tiết /admin/employees/:id.</p>
+</li>
+</ul>
+<hr>
+<h3 id="55-xem-chi-tiết-employee--bắt-buộc">5.5. Xem chi tiết employee — bắt buộc</h3>
+<p>Trang /admin/employees/:id hiển thị thông tin chi tiết của một employee.</p>
+<p>Yêu cầu:</p>
+<ul>
+<li>Lấy dữ liệu chi tiết từ API bằng React Query.</li>
+<li>Route lấy id từ URL params.</li>
+<li>Có trạng thái loading.</li>
+<li>Có trạng thái error.</li>
+<li>Có nút quay lại danh sách.</li>
+</ul>
+<hr>
+<h3 id="56-tạo-mới-employee--bắt-buộc">5.6. Tạo mới employee — bắt buộc</h3>
+<p>Trang /admin/employees/create dùng để tạo employee mới.</p>
+<p>Form tối thiểu gồm:</p>
+<ul>
+<li>Full name</li>
+<li>Email</li>
+<li>Phone number</li>
+<li>Position</li>
+</ul>
+<p>Yêu cầu:</p>
+<ul>
+<li>
+<p>Validate form bằng React Hook Form + Zod.</p>
+</li>
+<li>
+<p>Email đúng định dạng.</p>
+</li>
+<li>
+<p>Full name không được để trống.</p>
+</li>
+<li>
+<p>Gọi API tạo employee.</p>
+</li>
+<li>
+<p>Khi tạo thành công:</p>
+<ul>
+<li>Invalidate query danh sách employee.</li>
+<li>Hiển thị thông báo thành công.</li>
+<li>Điều hướng về /admin.</li>
+</ul>
+</li>
+<li>
+<p>Khi tạo thất bại:</p>
+<ul>
+<li>Hiển thị lỗi cho người dùng.</li>
+</ul>
+</li>
+</ul>
+<hr>
+
+            
+            
+        </body>
+        </html>

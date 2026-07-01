@@ -2,6 +2,7 @@ import { apiClient } from "@/lib/apiClient"
 import { useAuthStore } from "@/store/auth-store"
 import { useMutation } from "@tanstack/react-query"
 import { useLocation, useNavigate } from "react-router-dom"
+import { toast } from "sonner"
 
 const useLogin = () => {
   const location = useLocation()
@@ -15,12 +16,16 @@ const useLogin = () => {
     onSuccess: (res) => {
       setToken(res.token)
       setUser(res.user)
-      alert("Login successful !")
-      const redirect = location.state?.from.pathname
-      navigate(redirect || "/", { replace: true })
+      toast.success("Login successfull !")
+      if(res.user.role === "admin"){
+        navigate("/admin", {replace: true})
+      } else {
+        navigate("/attendance", {replace: true})
+      }
     },
     onError: (error: any) => {
-      alert(error.response?.data.message || "Login failed !")
+      // alert(error.response?.data.message || "Logout failed !")
+      toast.error(error.response?.data.message || "Logout failed !")
     },
   })
 }

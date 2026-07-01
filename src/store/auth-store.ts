@@ -17,7 +17,7 @@ interface AuthState {
 export interface AuthUser {
   id: string
   email: string
-  name: string
+  fullName: string
   role: "admin" | "employee"
 }
 export const useAuthStore = create<AuthState>()(

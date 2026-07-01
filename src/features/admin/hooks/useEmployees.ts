@@ -1,10 +1,10 @@
 import { apiClient } from "@/lib/apiClient"
 import { useQuery } from "@tanstack/react-query"
 
-export const useEmployees = (search?: string) => {
+export const useEmployee = (id: string) => {
   return useQuery({
-    queryKey: ["employees"] as const,
-    queryFn: () => apiClient.getListEmployee(),
-    staleTime: 300_000,
+    queryKey: ["employees", id],
+    queryFn: () => apiClient.getEmployeeById(id),
+    enabled: !!id,
   })
 }
