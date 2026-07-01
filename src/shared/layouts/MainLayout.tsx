@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { CardContent } from "@/components/ui/card"
 import useLogout from "@/features/auth/hooks/useLogout"
 import { useAuthStore } from "@/store/auth-store"
-import { Link, Outlet } from "react-router-dom"
+import { Link, Outlet, useNavigate } from "react-router-dom"
 
 const MainLayout = () => {
+  const navigate = useNavigate()
   const token = useAuthStore((state) => state.token)
   const user = useAuthStore((state) => state.user)
   const logoutMutation = useLogout()
@@ -19,10 +20,19 @@ const MainLayout = () => {
           <Link to={"/"}>CODELATBUG</Link>
         </CardContent>
         <CardContent>
+          <Link to={"/"} className="px-5">
+            Home
+          </Link>
+          {token && user?.role === "admin" && (
+            <Link to={"/admin"} className="px-5">
+              List
+            </Link>
+          )}
+
           {token && user ? (
             <Button onClick={handleLogout}>Logout</Button>
           ) : (
-            <Link to={"/login"}>Login</Link>
+            <Button onClick={() => navigate("/login")}>Login</Button>
           )}
         </CardContent>
       </div>

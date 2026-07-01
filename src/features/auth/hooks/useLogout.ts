@@ -1,7 +1,7 @@
 import { apiClient } from "@/lib/apiClient"
 import { useAuthStore } from "@/store/auth-store"
 import { useMutation } from "@tanstack/react-query"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 
 const useLogout = () => {
@@ -18,7 +18,6 @@ const useLogout = () => {
       navigate("/login", { replace: true })
     },
     onError: (error: any) => {
-      // alert(error.response?.data.message || "Logout failed !")
       toast.error(error.response?.data.message || "Logout failed !")
     },
   })

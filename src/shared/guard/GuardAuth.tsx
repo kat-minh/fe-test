@@ -8,7 +8,6 @@ const GuardAuth = () => {
     return <Navigate to={"/login"} replace />
   }
 
-  
   return <Outlet />
 }
 

@@ -1,12 +1,6 @@
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 
-/**
- * Example Zustand store (skeleton).
- *
- * Demonstrates the pattern: state + actions in one slice, persisted to
- * localStorage. Replace with whatever global state your feature needs.
- */
 interface AuthState {
   token: string | null
   user: AuthUser | null
@@ -17,7 +11,7 @@ interface AuthState {
 export interface AuthUser {
   id: string
   email: string
-  fullName: string
+  name: string
   role: "admin" | "employee"
 }
 export const useAuthStore = create<AuthState>()(

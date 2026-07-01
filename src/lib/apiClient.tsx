@@ -3,7 +3,7 @@ import { api } from "./axios"
 
 export interface AuthLogin {
   token: string
-  user: AuthUser | string
+  user: AuthUser
 }
 
 export interface Employee {
@@ -21,7 +21,7 @@ export interface CreateEmployee {
   email: string
   position: string
   department: string
-  status: "on_leave" | "active" | "inactive"
+  status?: "on_leave" | "active" | "inactive"
 }
 
 export const apiClient = {
@@ -30,7 +30,6 @@ export const apiClient = {
     password: string
   }): Promise<AuthLogin> {
     const res = await api.post("/auth/login", userData)
-    console.log(res.data)
     return res.data
   },
   async logout(): Promise<void> {
